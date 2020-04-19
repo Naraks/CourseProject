@@ -1,6 +1,6 @@
 package com.github.naraks.myappserver.controller;
 
-import com.github.naraks.myappserver.dto.QuestionItemDTO;
+import com.github.naraks.myappserver.dto.question.QuestionItemDTO;
 import com.github.naraks.myappserver.service.QuestionService;
 import org.springframework.web.bind.annotation.*;
 

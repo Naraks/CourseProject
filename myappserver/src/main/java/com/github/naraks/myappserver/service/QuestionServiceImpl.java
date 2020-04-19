@@ -1,10 +1,9 @@
 package com.github.naraks.myappserver.service;
 
-import com.github.naraks.myappserver.dto.AnswerItemDTO;
-import com.github.naraks.myappserver.dto.JournalRowsRequestDTO;
-import com.github.naraks.myappserver.dto.QuestionItemDTO;
+import com.github.naraks.myappserver.dto.question.AnswerItemDTO;
+import com.github.naraks.myappserver.dto.journal.JournalRowsRequestDTO;
+import com.github.naraks.myappserver.dto.question.QuestionItemDTO;
 import com.github.naraks.myappserver.entity.Answer;
-import com.github.naraks.myappserver.entity.JournalFilterItem;
 import com.github.naraks.myappserver.entity.Question;
 import com.github.naraks.myappserver.repository.AnswerRepository;
 import com.github.naraks.myappserver.repository.QuestionRepository;

@@ -1,8 +1,10 @@
 package com.github.naraks.myappserver.service;
 
-import com.github.naraks.myappserver.dto.JournalRowsRequestDTO;
-import com.github.naraks.myappserver.dto.QuestionItemDTO;
-import com.github.naraks.myappserver.dto.SessionItemDTO;
+import com.github.naraks.myappserver.dto.journal.JournalRowsRequestDTO;
+import com.github.naraks.myappserver.dto.question.QuestionItemDTO;
+import com.github.naraks.myappserver.dto.session.SessionItemDTO;
+import com.github.naraks.myappserver.dto.session.SessionRequestDTO;
+import com.github.naraks.myappserver.entity.Session;
 import com.github.naraks.myappserver.repository.AnswerRepository;
 import com.github.naraks.myappserver.repository.QuestionRepository;
 import com.github.naraks.myappserver.repository.SessionRepository;
@@ -48,5 +50,15 @@ public class SessionServiceImpl implements SessionService{
                 .stream()
                 .map(question -> new QuestionItemDTO(question, answerRepository.findByQuestion(question)))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void save(Session session) {
+        sessionRepository.save(session);
+    }
+
+    @Override
+    public Double calculate(SessionRequestDTO sessionRequestDTO) {
+        return 50.0;
     }
 }

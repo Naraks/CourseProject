@@ -1,7 +1,7 @@
 package com.github.naraks.myappserver.service;
 
-import com.github.naraks.myappserver.dto.JournalRowsRequestDTO;
-import com.github.naraks.myappserver.dto.QuestionItemDTO;
+import com.github.naraks.myappserver.dto.journal.JournalRowsRequestDTO;
+import com.github.naraks.myappserver.dto.question.QuestionItemDTO;
 
 import java.util.List;
 

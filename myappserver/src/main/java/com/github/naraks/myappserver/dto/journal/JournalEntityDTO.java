@@ -1,4 +1,4 @@
-package com.github.naraks.myappserver.dto;
+package com.github.naraks.myappserver.dto.journal;
 
 import com.github.naraks.myappserver.entity.Journal;
 import lombok.Data;

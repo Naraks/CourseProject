@@ -20,4 +20,5 @@ public class Session {
 
     @Column
     private Double percent;
+
 }

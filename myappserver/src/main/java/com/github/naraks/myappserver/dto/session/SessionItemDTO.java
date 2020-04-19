@@ -1,5 +1,6 @@
-package com.github.naraks.myappserver.dto;
+package com.github.naraks.myappserver.dto.session;
 
+import com.github.naraks.myappserver.dto.journal.JournalItemDTO;
 import com.github.naraks.myappserver.entity.Session;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -1,6 +1,7 @@
-package com.github.naraks.myappserver.dto;
+package com.github.naraks.myappserver.dto.question;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.github.naraks.myappserver.dto.journal.JournalItemDTO;
 import com.github.naraks.myappserver.entity.Answer;
 import com.github.naraks.myappserver.entity.Question;
 import com.github.naraks.myappserver.transfer.UserDetails;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class QuestionItemDTO extends JournalItemDTO{
+public class QuestionItemDTO extends JournalItemDTO {
 
     @JsonView({UserDetails.class})
     private String id;

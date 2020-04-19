@@ -1,5 +1,6 @@
-package com.github.naraks.myappserver.dto;
+package com.github.naraks.myappserver.dto.journal;
 
+import com.github.naraks.myappserver.dto.journal.JournalItemDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

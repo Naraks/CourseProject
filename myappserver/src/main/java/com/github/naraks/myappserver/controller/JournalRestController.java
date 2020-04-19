@@ -1,6 +1,8 @@
 package com.github.naraks.myappserver.controller;
 
-import com.github.naraks.myappserver.dto.*;
+import com.github.naraks.myappserver.dto.journal.JournalEntityDTO;
+import com.github.naraks.myappserver.dto.journal.JournalRowsRequestDTO;
+import com.github.naraks.myappserver.dto.journal.JournalRowsResponseDTO;
 import com.github.naraks.myappserver.service.JournalService;
 import com.github.naraks.myappserver.service.QuestionService;
 import com.github.naraks.myappserver.service.SessionService;

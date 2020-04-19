@@ -1,4 +1,4 @@
-package com.github.naraks.myappserver.dto;
+package com.github.naraks.myappserver.dto.question;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.github.naraks.myappserver.entity.Answer;

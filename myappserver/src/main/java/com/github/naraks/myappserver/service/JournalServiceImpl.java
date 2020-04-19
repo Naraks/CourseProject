@@ -1,9 +1,9 @@
 package com.github.naraks.myappserver.service;
 
-import com.github.naraks.myappserver.dto.JournalRowsRequestDTO;
-import com.github.naraks.myappserver.dto.JournalRowsResponseDTO;
-import com.github.naraks.myappserver.dto.QuestionItemDTO;
-import com.github.naraks.myappserver.dto.SessionItemDTO;
+import com.github.naraks.myappserver.dto.journal.JournalRowsRequestDTO;
+import com.github.naraks.myappserver.dto.journal.JournalRowsResponseDTO;
+import com.github.naraks.myappserver.dto.question.QuestionItemDTO;
+import com.github.naraks.myappserver.dto.session.SessionItemDTO;
 import com.github.naraks.myappserver.entity.Journal;
 import com.github.naraks.myappserver.repository.JournalRepository;
 import org.springframework.stereotype.Service;
