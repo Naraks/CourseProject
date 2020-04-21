@@ -39,11 +39,11 @@ public class JournalServiceImpl implements JournalService {
     public JournalRowsResponseDTO getJournalRows(String id, JournalRowsRequestDTO request) {
         switch (id) {
             case JournalServiceImpl.QUESTIONS_JOURNAL_ID:
-                List<QuestionItemDTO> questions = questionService.getQuestions(id, request);
-                return new JournalRowsResponseDTO(questionService.countQuestions(request), questions);
+                List<QuestionItemDTO> questions = questionService.getPagingAndFilteredQuestions(request);
+                return new JournalRowsResponseDTO(questionService.countFilteredQuestions(request), questions);
 
             case JournalServiceImpl.SESSIONS_JOURNAL_ID:
-                List<SessionItemDTO> sessions = sessionService.getSessions(id, request);
+                List<SessionItemDTO> sessions = sessionService.getSessions(request);
                 return new JournalRowsResponseDTO(sessionService.countSessions(request), sessions);
 
             default:

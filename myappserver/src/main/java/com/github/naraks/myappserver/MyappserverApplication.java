@@ -2,7 +2,6 @@ package com.github.naraks.myappserver;
 
 import com.github.naraks.myappserver.entity.Journal;
 import com.github.naraks.myappserver.repository.JournalRepository;
-import com.github.naraks.myappserver.repository.SessionRepository;
 import com.github.naraks.myappserver.service.JournalServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;

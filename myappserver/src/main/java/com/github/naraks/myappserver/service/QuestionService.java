@@ -11,7 +11,7 @@ public interface QuestionService {
 
     QuestionItemDTO edit(QuestionItemDTO questionItemDTO);
 
-    List<QuestionItemDTO> getQuestions(String journalId, JournalRowsRequestDTO request);
+    List<QuestionItemDTO> getPagingAndFilteredQuestions(JournalRowsRequestDTO request);
 
-    Integer countQuestions(JournalRowsRequestDTO request);
+    Integer countFilteredQuestions(JournalRowsRequestDTO request);
 }

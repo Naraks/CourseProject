@@ -22,21 +22,18 @@ public class SessionRestController {
         this.sessionService = sessionService;
     }
 
-    @PostMapping("create")
-    public String create(@RequestBody SessionRequestDTO sessionRequestDTO) {
-        double percent = sessionService.calculate(sessionRequestDTO);
-        Session session = new Session();
-        session.setFullName(sessionRequestDTO.getName());
-        session.setPercent(percent);
-        sessionService.save(session);
-        return Double.toString(percent);
-    }
-
     @JsonView({UserDetails.class})
     @GetMapping("questions-new")
     public List<QuestionItemDTO> getQuestions(){
         return sessionService.getQuestions();
     }
+
+    @PostMapping()
+    public String create(@RequestBody SessionRequestDTO sessionRequestDTO) {
+        Session session = sessionService.save(sessionRequestDTO);
+        return session.getPercent().toString();
+    }
+
 }
 
 

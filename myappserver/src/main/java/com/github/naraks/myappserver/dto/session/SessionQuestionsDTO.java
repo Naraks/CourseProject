@@ -1,6 +1,5 @@
 package com.github.naraks.myappserver.dto.session;
 
-import com.github.naraks.myappserver.dto.session.SessionItemDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

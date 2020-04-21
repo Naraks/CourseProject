@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class SelectedAnswer {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @JoinColumn(name = "answer_id")
@@ -19,4 +19,5 @@ public class SelectedAnswer {
     @JoinColumn(name = "session_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Session session;
+
 }

@@ -10,13 +10,13 @@ import java.util.List;
 
 public interface SessionService {
 
-    List<SessionItemDTO> getSessions(String journalId, JournalRowsRequestDTO request);
+    List<SessionItemDTO> getSessions(JournalRowsRequestDTO request);
 
     Integer countSessions(JournalRowsRequestDTO request);
 
     List<QuestionItemDTO> getQuestions();
 
-    void save(Session session);
+    Session save(SessionRequestDTO sessionRequestDTO);
 
-    Double calculate(SessionRequestDTO sessionRequestDTO);
+    Double calculateTotalPercent(SessionRequestDTO sessionRequestDTO);
 }
