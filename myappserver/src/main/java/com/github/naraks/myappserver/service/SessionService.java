@@ -14,7 +14,7 @@ public interface SessionService {
 
     Integer countSessions(JournalRowsRequestDTO request);
 
-    List<QuestionItemDTO> getQuestions();
+    List<QuestionItemDTO> getQuestionsForSession();
 
     Session save(SessionRequestDTO sessionRequestDTO);
 

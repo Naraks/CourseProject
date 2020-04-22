@@ -25,7 +25,7 @@ public class SessionRestController {
     @JsonView({UserDetails.class})
     @GetMapping("questions-new")
     public List<QuestionItemDTO> getQuestions(){
-        return sessionService.getQuestions();
+        return sessionService.getQuestionsForSession();
     }
 
     @PostMapping()

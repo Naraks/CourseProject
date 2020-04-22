@@ -57,7 +57,7 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public List<QuestionItemDTO> getQuestions() {
+    public List<QuestionItemDTO> getQuestionsForSession() {
         return questionRepository.findAll()
                 .stream()
                 .map(question -> new QuestionItemDTO(question, answerRepository.findByQuestion(question)))

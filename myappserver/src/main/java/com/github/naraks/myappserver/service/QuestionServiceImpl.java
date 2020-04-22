@@ -8,8 +8,6 @@ import com.github.naraks.myappserver.entity.JournalFilterItem;
 import com.github.naraks.myappserver.entity.Question;
 import com.github.naraks.myappserver.repository.AnswerRepository;
 import com.github.naraks.myappserver.repository.QuestionRepository;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;

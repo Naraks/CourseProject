@@ -1,9 +1,6 @@
 package com.github.naraks.myappserver.service;
 
 import com.github.naraks.myappserver.dto.journal.JournalRowsRequestDTO;
-import com.github.naraks.myappserver.dto.journal.JournalRowsResponseDTO;
-import com.github.naraks.myappserver.dto.question.QuestionItemDTO;
-import com.github.naraks.myappserver.dto.session.SessionItemDTO;
 import com.github.naraks.myappserver.entity.Journal;
 import com.github.naraks.myappserver.repository.JournalRepository;
 import com.github.naraks.myappserver.repository.QuestionRepository;
@@ -15,13 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class JournalServiceImplTest {
+class JournalServiceTest {
 
     @Autowired
     private JournalService journalService;
