@@ -13,11 +13,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class QuestionServiceImpl implements QuestionService {
+
+    public static final String QUESTION_ANSWER_COUNT_FILTER = "question-answer-count";
 
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
@@ -62,10 +65,10 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Integer countFilteredQuestions(JournalRowsRequestDTO request) {
-        List<Question> questions = questionRepository.findAll();
+        List<Question> questions = questionRepository.getByNameContainingIgnoreCase(request.getSearch());
         for (JournalFilterItem filterItem : request.getFilters()) {
             switch (filterItem.getCode()) {
-                case "question-answer-count":
+                case QUESTION_ANSWER_COUNT_FILTER:
                     if (filterItem.getValue() != null && !filterItem.getValue().equals("")) {
                         questions = questions.stream()
                                 .filter(question ->
@@ -108,7 +111,9 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     private void createAnswers(QuestionItemDTO dto, Question question) {
-        for (AnswerItemDTO itemDTO : dto.getAnswers()) {
+        List<AnswerItemDTO> answers = Optional.ofNullable(dto.getAnswers())
+                .orElseThrow(() -> new RuntimeException("Question must contain answers"));
+        for (AnswerItemDTO itemDTO : answers) {
             Answer answer = new Answer();
             answer.setName(itemDTO.getAnswerText());
             answer.setQuestion(question);

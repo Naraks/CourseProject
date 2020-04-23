@@ -4,8 +4,6 @@ import com.github.naraks.myappserver.dto.journal.JournalEntityDTO;
 import com.github.naraks.myappserver.dto.journal.JournalRowsRequestDTO;
 import com.github.naraks.myappserver.dto.journal.JournalRowsResponseDTO;
 import com.github.naraks.myappserver.service.JournalService;
-import com.github.naraks.myappserver.service.QuestionService;
-import com.github.naraks.myappserver.service.SessionService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,7 +13,7 @@ public class JournalRestController {
 
     private final JournalService journalService;
 
-    public JournalRestController(JournalService journalService, QuestionService questionService, SessionService sessionService) {
+    public JournalRestController(JournalService journalService) {
         this.journalService = journalService;
     }
 
@@ -25,7 +23,8 @@ public class JournalRestController {
     }
 
     @PutMapping("{id}/rows")
-    public JournalRowsResponseDTO getJournalRows(@PathVariable String id, @RequestBody JournalRowsRequestDTO request){
+    public JournalRowsResponseDTO getJournalRows(@PathVariable String id,
+                                                 @RequestBody JournalRowsRequestDTO request){
         return journalService.getJournalRows(id, request);
     }
 

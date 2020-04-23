@@ -12,4 +12,5 @@ public interface SessionRepository extends
         PagingAndSortingRepository<Session, Long> {
     List<Session> getByFullNameContainingIgnoreCase(String search, Pageable pageable);
     List<Session> getByFullNameContainingIgnoreCase(String search);
+    List<Session> findAll();
 }
