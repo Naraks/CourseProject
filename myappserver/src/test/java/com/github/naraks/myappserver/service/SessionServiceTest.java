@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class SessionServiceImplTest {
+class SessionServiceTest {
 
     @Autowired
     private SessionRepository sessionRepository;
