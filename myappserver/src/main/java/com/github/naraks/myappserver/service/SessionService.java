@@ -9,14 +9,9 @@ import com.github.naraks.myappserver.entity.Session;
 import java.util.List;
 
 public interface SessionService {
-
     List<SessionItemDTO> getSessions(JournalRowsRequestDTO request);
-
     Integer countSessions(JournalRowsRequestDTO request);
-
     List<QuestionItemDTO> getQuestionsForSession();
-
     Session save(SessionRequestDTO sessionRequestDTO);
-
     Double calculateTotalPercent(SessionRequestDTO sessionRequestDTO);
 }

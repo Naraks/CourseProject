@@ -7,7 +7,6 @@ import java.util.List;
 
 @Data
 public class JournalRowsRequestDTO {
-
     private String journalId;
     private String search;
     private List<JournalFilterItem> filters;

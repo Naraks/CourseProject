@@ -10,7 +10,6 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class SessionItemDTO extends JournalItemDTO {
-
     private String id;
     private String name;
     private Date insertDate;

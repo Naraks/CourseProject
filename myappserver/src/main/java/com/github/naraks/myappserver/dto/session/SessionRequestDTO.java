@@ -10,7 +10,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SessionRequestDTO {
-
     private String name;
     private List<AnsweredQuestionDTO> questionsList;
 }

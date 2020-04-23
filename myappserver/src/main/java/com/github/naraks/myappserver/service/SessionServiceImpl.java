@@ -70,7 +70,6 @@ public class SessionServiceImpl implements SessionService {
         session.setFullName(sessionRequestDTO.getName());
         session.setPercent(calculateTotalPercent(sessionRequestDTO));
         sessionRepository.save(session);
-
         for (AnsweredQuestionDTO questionDTO : sessionRequestDTO.getQuestionsList()) {
             for (SessionQuestionAnswerDTO answerDTO : questionDTO.getAnswersList()) {
                 if (answerDTO.getIsSelected()) {
@@ -82,20 +81,16 @@ public class SessionServiceImpl implements SessionService {
                 }
             }
         }
-
         return session;
     }
 
     @Override
     public Double calculateTotalPercent(SessionRequestDTO sessionRequestDTO) {
         double totalPoints = 0d;
-
         for (AnsweredQuestionDTO answeredQuestionDTO : sessionRequestDTO.getQuestionsList()) {
-
             Question question = questionRepository.findById(Long.parseLong(answeredQuestionDTO.getId()))
                     .orElseThrow(() -> new RuntimeException(String.format("Question with id %s not found", answeredQuestionDTO.getId())));
             List<Answer> answers = answerRepository.findByQuestion(question);
-
             // 1. Есть только один правильный ответ
             if (answers.stream().map(Answer::getIsCorrect).count() == 1) {
                 if (getCheckedAnswers(answeredQuestionDTO).size() == 1
@@ -117,15 +112,16 @@ public class SessionServiceImpl implements SessionService {
                         }
                     }
                 }
-
                 totalPoints += calculateByFormula(totalAnswers, correctAnswers, correctUserAnswers, wrongUserAnswers);
-
             }
         }
         return totalPoints / sessionRequestDTO.getQuestionsList().size() * 100;
     }
 
-    private double calculateByFormula(double totalAnswers, double correctAnswers, double correctUserAnswers, double wrongUserAnswers) {
+    private double calculateByFormula(double totalAnswers,
+                                      double correctAnswers,
+                                      double correctUserAnswers,
+                                      double wrongUserAnswers) {
         if (totalAnswers - correctAnswers == 0 || correctAnswers == 0) {
             return 0;
         } else {
@@ -140,7 +136,6 @@ public class SessionServiceImpl implements SessionService {
         boolean isAnswerCorrect = answerRepository.findById(Long.parseLong(id))
                 .orElseThrow(() -> new RuntimeException(String.format("Answer with id %s not found", id)))
                 .getIsCorrect();
-
         return isSelected && isAnswerCorrect;
     }
 
@@ -151,19 +146,16 @@ public class SessionServiceImpl implements SessionService {
         boolean isAnswerCorrect = answerRepository.findById(Long.parseLong(id))
                 .orElseThrow(() -> new RuntimeException(String.format("Answer with id %s not found", id)))
                 .getIsCorrect();
-
         return !isSelected && !isAnswerCorrect;
     }
 
     private List<SessionQuestionAnswerDTO> getCheckedAnswers(AnsweredQuestionDTO questionDTO) {
         List<SessionQuestionAnswerDTO> checkedAnswers = new ArrayList<>();
-
         for (SessionQuestionAnswerDTO answerDTO : questionDTO.getAnswersList()) {
             if (answerDTO.getIsSelected()) {
                 checkedAnswers.add(answerDTO);
             }
         }
-
         return checkedAnswers;
     }
 }

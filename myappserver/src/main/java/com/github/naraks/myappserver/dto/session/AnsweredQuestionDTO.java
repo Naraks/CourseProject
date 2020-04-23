@@ -10,8 +10,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnsweredQuestionDTO {
-
     private String id;
     private List<SessionQuestionAnswerDTO> answersList;
-
 }

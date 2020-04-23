@@ -23,7 +23,9 @@ public class JournalServiceImpl implements JournalService {
     private final QuestionService questionService;
     private final SessionService sessionService;
 
-    public JournalServiceImpl(JournalRepository journalRepository, QuestionService questionService, SessionService sessionService) {
+    public JournalServiceImpl(JournalRepository journalRepository,
+                              QuestionService questionService,
+                              SessionService sessionService) {
         this.journalRepository = journalRepository;
         this.questionService = questionService;
         this.sessionService = sessionService;
@@ -36,16 +38,15 @@ public class JournalServiceImpl implements JournalService {
     }
 
     @Override
-    public JournalRowsResponseDTO getJournalRows(String id, JournalRowsRequestDTO request) {
+    public JournalRowsResponseDTO getJournalRows(String id,
+                                                 JournalRowsRequestDTO request) {
         switch (id) {
             case JournalServiceImpl.QUESTIONS_JOURNAL_ID:
                 List<QuestionItemDTO> questions = questionService.getPagingAndFilteredQuestions(request);
                 return new JournalRowsResponseDTO(questionService.countFilteredQuestions(request), questions);
-
             case JournalServiceImpl.SESSIONS_JOURNAL_ID:
                 List<SessionItemDTO> sessions = sessionService.getSessions(request);
                 return new JournalRowsResponseDTO(sessionService.countSessions(request), sessions);
-
             default:
                 throw new RuntimeException(String.format("Journal with id %s not exist", id));
         }

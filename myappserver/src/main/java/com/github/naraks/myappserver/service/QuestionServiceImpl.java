@@ -25,7 +25,8 @@ public class QuestionServiceImpl implements QuestionService {
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
 
-    public QuestionServiceImpl(QuestionRepository questionRepository, AnswerRepository answerRepository) {
+    public QuestionServiceImpl(QuestionRepository questionRepository,
+                               AnswerRepository answerRepository) {
         this.questionRepository = questionRepository;
         this.answerRepository = answerRepository;
     }
@@ -35,9 +36,7 @@ public class QuestionServiceImpl implements QuestionService {
         Question question = new Question();
         question.setName(dto.getName());
         questionRepository.save(question);
-
         createAnswers(dto, question);
-
         return new QuestionItemDTO(question, answerRepository.findByQuestion(question));
     }
 
@@ -48,10 +47,8 @@ public class QuestionServiceImpl implements QuestionService {
                 .orElseThrow(() -> new RuntimeException(String.format("Question with id %s not exist", dto.getId())));
         question.setName(dto.getName());
         questionRepository.save(question);
-
         answerRepository.deleteByQuestion(question);
         createAnswers(dto, question);
-
         return new QuestionItemDTO(question, answerRepository.findByQuestion(question));
     }
 
@@ -76,7 +73,6 @@ public class QuestionServiceImpl implements QuestionService {
                                 .collect(Collectors.toList());
                     }
                     break;
-
                 default:
                     throw new RuntimeException(String.format("Filter item with code %s not found", filterItem.getCode()));
             }
@@ -91,13 +87,15 @@ public class QuestionServiceImpl implements QuestionService {
                 case "question-answer-count":
                     if (filterItem.getValue() != null && !filterItem.getValue().equals("")) {
                         questionsItemDTO = questionsItemDTO.stream()
-                                .filter(questionItemDTO -> questionItemDTO.getAnswers().size() == Integer.parseInt(filterItem.getValue()))
+                                .filter(questionItemDTO ->
+                                        questionItemDTO.getAnswers().size() == Integer.parseInt(filterItem.getValue()))
                                 .collect(Collectors.toList());
                     }
                     break;
 
                 default:
-                    throw new RuntimeException(String.format("Filter item with code %s not found", filterItem.getCode()));
+                    throw new RuntimeException(String.format("Filter item with code %s not found",
+                            filterItem.getCode()));
             }
         }
         return questionsItemDTO;
