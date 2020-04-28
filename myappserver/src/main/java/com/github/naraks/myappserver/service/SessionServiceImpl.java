@@ -92,9 +92,10 @@ public class SessionServiceImpl implements SessionService {
                     .orElseThrow(() -> new RuntimeException(String.format("Question with id %s not found", answeredQuestionDTO.getId())));
             List<Answer> answers = answerRepository.findByQuestion(question);
             // 1. Есть только один правильный ответ
-            if (answers.stream().map(Answer::getIsCorrect).count() == 1) {
+            if (answers.stream().filter(Answer::getIsCorrect).count() == 1) {
                 if (getCheckedAnswers(answeredQuestionDTO).size() == 1
-                        && checkCorrectness(getCheckedAnswers(answeredQuestionDTO).get(0))) {
+                        && isAnswerSelected(getCheckedAnswers(answeredQuestionDTO).get(0))
+                        && isAnswerCorrect(getCheckedAnswers(answeredQuestionDTO).get(0))) {
                     totalPoints += 1;
                 }
             } else { // 2. Несколько правильных ответов
@@ -104,10 +105,11 @@ public class SessionServiceImpl implements SessionService {
                 double wrongUserAnswers = 0;
 
                 for (SessionQuestionAnswerDTO answerDTO : answeredQuestionDTO.getAnswersList()) {
-                    if (checkCorrectness(answerDTO)) {
+                    if (isAnswerSelected(answerDTO) && isAnswerCorrect(answerDTO)) {
                         correctUserAnswers++;
                     } else {
-                        if (!checkWrongAnswerNotChosen(answerDTO)) {
+                        if (!isAnswerSelected(answerDTO) && isAnswerCorrect(answerDTO)
+                                || isAnswerSelected(answerDTO) && !isAnswerCorrect(answerDTO)) {
                             wrongUserAnswers++;
                         }
                     }
@@ -115,38 +117,39 @@ public class SessionServiceImpl implements SessionService {
                 totalPoints += calculateByFormula(totalAnswers, correctAnswers, correctUserAnswers, wrongUserAnswers);
             }
         }
-        return totalPoints / sessionRequestDTO.getQuestionsList().size() * 100;
+        if (sessionRequestDTO.getQuestionsList().size() == 0) {
+            return 100d;
+        } else {
+            return totalPoints / sessionRequestDTO.getQuestionsList().size() * 100;
+        }
     }
 
     private double calculateByFormula(double totalAnswers,
                                       double correctAnswers,
                                       double correctUserAnswers,
                                       double wrongUserAnswers) {
-        if (totalAnswers - correctAnswers == 0 || correctAnswers == 0) {
+        if (correctAnswers == 0 && totalAnswers != 0) {
             return 0;
+        } else if (correctAnswers == 0 && totalAnswers == 0) {
+            return 1;
+        } else if (totalAnswers == correctAnswers && correctAnswers == correctUserAnswers) {
+            return 1;
+        } else if (totalAnswers == correctAnswers && correctAnswers != correctUserAnswers) {
+            return Math.max(0, correctUserAnswers / correctAnswers);
         } else {
             return Math.max(0, correctUserAnswers / correctAnswers - wrongUserAnswers / (totalAnswers - correctAnswers));
         }
     }
 
-    //Проверка, что ответы совпадают
-    private boolean checkCorrectness(SessionQuestionAnswerDTO answerDTO) {
-        String id = answerDTO.getId();
-        boolean isSelected = answerDTO.getIsSelected();
-        boolean isAnswerCorrect = answerRepository.findById(Long.parseLong(id))
-                .orElseThrow(() -> new RuntimeException(String.format("Answer with id %s not found", id)))
-                .getIsCorrect();
-        return isSelected && isAnswerCorrect;
+    private boolean isAnswerSelected(SessionQuestionAnswerDTO answerDTO) {
+        return answerDTO.getIsSelected();
     }
 
-    //Проверка, что неправильный ответ не выбран
-    private boolean checkWrongAnswerNotChosen(SessionQuestionAnswerDTO answerDTO) {
+    private boolean isAnswerCorrect(SessionQuestionAnswerDTO answerDTO) {
         String id = answerDTO.getId();
-        boolean isSelected = answerDTO.getIsSelected();
-        boolean isAnswerCorrect = answerRepository.findById(Long.parseLong(id))
+        return answerRepository.findById(Long.parseLong(id))
                 .orElseThrow(() -> new RuntimeException(String.format("Answer with id %s not found", id)))
                 .getIsCorrect();
-        return !isSelected && !isAnswerCorrect;
     }
 
     private List<SessionQuestionAnswerDTO> getCheckedAnswers(AnsweredQuestionDTO questionDTO) {

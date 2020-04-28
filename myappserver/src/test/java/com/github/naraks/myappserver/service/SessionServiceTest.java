@@ -19,6 +19,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -374,6 +375,203 @@ class SessionServiceTest {
         sessionRequestDTO.setQuestionsList(questions);
 
         assertEquals(50d, sessionService.calculateTotalPercent(sessionRequestDTO));
+    }
+
+    @Test
+    void calculateTotalPercentCase5() {
+        Question question = new Question();
+        question.setName("Case 5");
+        question = questionRepository.save(question);
+
+        Answer answer = new Answer();
+        answer.setName("true");
+        answer.setIsCorrect(true);
+        answer.setQuestion(question);
+        answerRepository.save(answer);
+
+        Answer answer1 = new Answer();
+        answer1.setName("false");
+        answer1.setIsCorrect(false);
+        answer1.setQuestion(question);
+        answerRepository.save(answer1);
+
+        Answer answer2 = new Answer();
+        answer2.setName("false");
+        answer2.setIsCorrect(false);
+        answer2.setQuestion(question);
+        answerRepository.save(answer2);
+
+        Answer answer3 = new Answer();
+        answer3.setName("false");
+        answer3.setIsCorrect(false);
+        answer3.setQuestion(question);
+        answerRepository.save(answer3);
+
+        Answer answer4 = new Answer();
+        answer4.setName("false");
+        answer4.setIsCorrect(false);
+        answer4.setQuestion(question);
+        answerRepository.save(answer4);
+
+        SessionRequestDTO sessionRequestDTO = new SessionRequestDTO();
+        sessionRequestDTO.setName("session");
+
+        SessionQuestionAnswerDTO sessionQuestionAnswerDTO = new SessionQuestionAnswerDTO();
+        sessionQuestionAnswerDTO.setId(answer.getId().toString());
+        sessionQuestionAnswerDTO.setIsSelected(true);
+        SessionQuestionAnswerDTO sessionQuestionAnswerDTO1 = new SessionQuestionAnswerDTO();
+        sessionQuestionAnswerDTO1.setId(answer1.getId().toString());
+        sessionQuestionAnswerDTO1.setIsSelected(true);
+        List<SessionQuestionAnswerDTO> answers = new ArrayList<>();
+        answers.add(sessionQuestionAnswerDTO);
+        answers.add(sessionQuestionAnswerDTO1);
+
+        AnsweredQuestionDTO answeredQuestionDTO = new AnsweredQuestionDTO();
+        answeredQuestionDTO.setAnswersList(answers);
+        answeredQuestionDTO.setId(question.getId().toString());
+        List<AnsweredQuestionDTO> questions = new ArrayList<>();
+        questions.add(answeredQuestionDTO);
+
+        sessionRequestDTO.setQuestionsList(questions);
+
+        assertEquals(0d, sessionService.calculateTotalPercent(sessionRequestDTO));
+    }
+
+    @Test
+    void calculateTotalPercentCase6() {
+        Question question = new Question();
+        question.setName("Case 6");
+        question = questionRepository.save(question);
+
+        Answer answer = new Answer();
+        answer.setName("true");
+        answer.setIsCorrect(true);
+        answer.setQuestion(question);
+        answerRepository.save(answer);
+
+        Answer answer1 = new Answer();
+        answer1.setName("true");
+        answer1.setIsCorrect(true);
+        answer1.setQuestion(question);
+        answerRepository.save(answer1);
+
+        Answer answer2 = new Answer();
+        answer2.setName("true");
+        answer2.setIsCorrect(true);
+        answer2.setQuestion(question);
+        answerRepository.save(answer2);
+
+        SessionRequestDTO sessionRequestDTO = new SessionRequestDTO();
+        sessionRequestDTO.setName("session");
+
+        SessionQuestionAnswerDTO sessionQuestionAnswerDTO = new SessionQuestionAnswerDTO();
+        sessionQuestionAnswerDTO.setId(answer.getId().toString());
+        sessionQuestionAnswerDTO.setIsSelected(true);
+        SessionQuestionAnswerDTO sessionQuestionAnswerDTO1 = new SessionQuestionAnswerDTO();
+        sessionQuestionAnswerDTO1.setId(answer1.getId().toString());
+        sessionQuestionAnswerDTO1.setIsSelected(true);
+        SessionQuestionAnswerDTO sessionQuestionAnswerDTO2 = new SessionQuestionAnswerDTO();
+        sessionQuestionAnswerDTO2.setId(answer2.getId().toString());
+        sessionQuestionAnswerDTO2.setIsSelected(true);
+        List<SessionQuestionAnswerDTO> answers = new ArrayList<>();
+        answers.add(sessionQuestionAnswerDTO);
+        answers.add(sessionQuestionAnswerDTO1);
+        answers.add(sessionQuestionAnswerDTO2);
+
+        AnsweredQuestionDTO answeredQuestionDTO = new AnsweredQuestionDTO();
+        answeredQuestionDTO.setAnswersList(answers);
+        answeredQuestionDTO.setId(question.getId().toString());
+        List<AnsweredQuestionDTO> questions = new ArrayList<>();
+        questions.add(answeredQuestionDTO);
+
+        sessionRequestDTO.setQuestionsList(questions);
+
+        assertEquals(100d, sessionService.calculateTotalPercent(sessionRequestDTO));
+    }
+
+    @Test
+    void calculateTotalPercentCase7() {
+        Question question = new Question();
+        question.setName("Case 7");
+        question = questionRepository.save(question);
+
+        Answer answer = new Answer();
+        answer.setName("true");
+        answer.setIsCorrect(true);
+        answer.setQuestion(question);
+        answerRepository.save(answer);
+
+        Answer answer1 = new Answer();
+        answer1.setName("true");
+        answer1.setIsCorrect(true);
+        answer1.setQuestion(question);
+        answerRepository.save(answer1);
+
+        Answer answer2 = new Answer();
+        answer2.setName("true");
+        answer2.setIsCorrect(true);
+        answer2.setQuestion(question);
+        answerRepository.save(answer2);
+
+        SessionRequestDTO sessionRequestDTO = new SessionRequestDTO();
+        sessionRequestDTO.setName("session");
+
+        SessionQuestionAnswerDTO sessionQuestionAnswerDTO = new SessionQuestionAnswerDTO();
+        sessionQuestionAnswerDTO.setId(answer.getId().toString());
+        sessionQuestionAnswerDTO.setIsSelected(true);
+        SessionQuestionAnswerDTO sessionQuestionAnswerDTO1 = new SessionQuestionAnswerDTO();
+        sessionQuestionAnswerDTO1.setId(answer1.getId().toString());
+        sessionQuestionAnswerDTO1.setIsSelected(true);
+        SessionQuestionAnswerDTO sessionQuestionAnswerDTO2 = new SessionQuestionAnswerDTO();
+        sessionQuestionAnswerDTO2.setId(answer2.getId().toString());
+        sessionQuestionAnswerDTO2.setIsSelected(false);
+        List<SessionQuestionAnswerDTO> answers = new ArrayList<>();
+        answers.add(sessionQuestionAnswerDTO);
+        answers.add(sessionQuestionAnswerDTO1);
+        answers.add(sessionQuestionAnswerDTO2);
+
+        AnsweredQuestionDTO answeredQuestionDTO = new AnsweredQuestionDTO();
+        answeredQuestionDTO.setAnswersList(answers);
+        answeredQuestionDTO.setId(question.getId().toString());
+        List<AnsweredQuestionDTO> questions = new ArrayList<>();
+        questions.add(answeredQuestionDTO);
+
+        sessionRequestDTO.setQuestionsList(questions);
+
+        DecimalFormat df = new DecimalFormat("###.##");
+        assertEquals("66,67", df.format(sessionService.calculateTotalPercent(sessionRequestDTO)));
+    }
+
+    @Test
+    void calculateTotalPercentCase8() {
+        Question question = new Question();
+        question.setName("Case 8");
+        question = questionRepository.save(question);
+
+        SessionRequestDTO sessionRequestDTO = new SessionRequestDTO();
+        sessionRequestDTO.setName("session");
+
+        List<SessionQuestionAnswerDTO> answers = new ArrayList<>();
+
+        AnsweredQuestionDTO answeredQuestionDTO = new AnsweredQuestionDTO();
+        answeredQuestionDTO.setAnswersList(answers);
+        answeredQuestionDTO.setId(question.getId().toString());
+        List<AnsweredQuestionDTO> questions = new ArrayList<>();
+        questions.add(answeredQuestionDTO);
+
+        sessionRequestDTO.setQuestionsList(questions);
+
+        assertEquals(100d, sessionService.calculateTotalPercent(sessionRequestDTO));
+    }
+
+    @Test
+    void calculateTotalPercentCase9() {
+        SessionRequestDTO sessionRequestDTO = new SessionRequestDTO();
+        sessionRequestDTO.setName("session");
+
+        sessionRequestDTO.setQuestionsList(new ArrayList<>());
+
+        assertEquals(100d, sessionService.calculateTotalPercent(sessionRequestDTO));
     }
 }
 
